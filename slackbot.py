@@ -10,10 +10,7 @@ https://hirelofty.com/blog/how-build-slack-bot-mimics-your-colleague/
 """
 
 import time
-import json
-import re
 import slack
-import time
 import os
 import sys
 
@@ -24,41 +21,23 @@ DEBUG = True
 @slack.RTMClient.run_on(event='message')
 def say_hello(**payload):
     data = payload['data']
-
-    # Access the value of key in a safer way without KeyError
+    webclient = payload['web_client']
     text = data.get('text')
+    channel_id = data['channel']
+    thread_ts = data['ts']
+    user = data['user']
 
-    commands = ['Help', 'Hello']
+    if 'Hello' in text:
+        response = webclient.chat_postMessage(
+            channel=channel_id,
+            text="Hi <@{}>!".format(user),
+            thread_ts=thread_ts,
+        )
+        print(response)
+        assert response["ok"]
 
-    if text is not None:
-        if 'Hello' in text:
-            channel_id = data['channel']
-            thread_ts = data['ts']
-            user = data['user']
-
-            webclient = payload['web_client']
-            response = webclient.chat_postMessage(
-                channel=channel_id,
-                text="Hi <@{}>!".format(user),
-                thread_ts=thread_ts,
-            )
-            assert response["ok"]
-
-        if 'Help' in text:
-            channel_id = data['channel']
-            thread_ts = data['ts']
-            user = data['user']
-
-            webclient = payload['web_client']
-            response = webclient.chat_postMessage(
-                channel=channel_id,
-                text="I am a helpful admin bot. I support the following commands: {}".format(commands),
-                thread_ts=thread_ts,
-            )
-            assert response["ok"]
-
-        else:
-            print("[!] Waiting for commands...")
+    else:
+        print("[!] Waiting for commands...")
 
 
 def verify_token():
@@ -84,7 +63,12 @@ def main():
     # Verify API Token
     slack_token = verify_token()
     slack_client = slack.RTMClient(token=slack_token)
-    slack_client.start()
+    try:
+        slack_client.start()
+    except (KeyboardInterrupt, SystemExit):
+        raise Exception("[!] Keyboard Interrupt Encounted - Program Exiting")
+    except Exception as e:
+        print("[!] Unhandled exception encountered: {}".format(e))
 
 
 if __name__ == "__main__":
