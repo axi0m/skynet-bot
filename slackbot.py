@@ -1,21 +1,18 @@
 """
 Author: axi0m
 Purpose: Slack Bot to help the slack admins
-Acknowledgements:
-https://www.fullstackpython.com/blog/build-first-slack-bot-python.html
-https://medium.com/@greut/a-slack-bot-with-pythons-3-5-asyncio-ad766d8b5d8f#.r6tx149q3
-https://12factor.net/
-https://gist.github.com/ckinsey/5777f03d2a775a04c43a96de6698cb77
-https://hirelofty.com/blog/how-build-slack-bot-mimics-your-colleague/
 """
 
-import time
 import slack
 import os
-import sys
 
-# Globals
-DEBUG = True
+'''
+TODO:
+1. Add function to test for inactive account - https://api.slack.com/methods/rtm.start/test
+2. Add logging module and debug/info logging
+3. Add HTTP 429 code handling in case we're rate limited, see Slack RTM API docs
+4. Add commands that'd be useful to have
+'''
 
 
 @slack.RTMClient.run_on(event='message')
@@ -28,6 +25,7 @@ def say_hello(**payload):
     user = data['user']
 
     if 'Hello' in text:
+        print('DEBUG: Bot consumed the message')
         response = webclient.chat_postMessage(
             channel=channel_id,
             text="Hi <@{}>!".format(user),
@@ -47,26 +45,17 @@ def verify_token():
 
     try:
         slack_token = os.environ.get('SLACK_API_TOKEN')
-    except:
-        raise Exception('[!] Unable to set API token')
-        sys.exit(1)
-    else:
-        if slack_token is not None:
-            print('[+] API token present and set')
-            return slack_token
-        else:
-            raise Exception('[!] Unable to set API token')
-            sys.exit(1)
+        return slack_token
+    except (Exception, SystemExit) as e:
+        print('[!] Unable to set API token: {}'.format(e))
 
 
 def main():
-    # Verify API Token
     slack_token = verify_token()
     slack_client = slack.RTMClient(token=slack_token)
+
     try:
         slack_client.start()
-    except (KeyboardInterrupt, SystemExit):
-        raise Exception("[!] Keyboard Interrupt Encounted - Program Exiting")
     except Exception as e:
         print("[!] Unhandled exception encountered: {}".format(e))
 
