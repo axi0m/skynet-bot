@@ -17,19 +17,20 @@ import time
 import os
 import sys
 
-# Globals 
+# Globals
 DEBUG = True
+
 
 @slack.RTMClient.run_on(event='message')
 def say_hello(**payload):
     data = payload['data']
-    
+
     # Access the value of key in a safer way without KeyError
     text = data.get('text')
 
     commands = ['Help', 'Hello']
 
-    if text is not None and isinstance(text, str):
+    if text is not None:
         if 'Hello' in text:
             channel_id = data['channel']
             thread_ts = data['ts']
@@ -39,10 +40,10 @@ def say_hello(**payload):
             response = webclient.chat_postMessage(
                 channel=channel_id,
                 text="Hi <@{}>!".format(user),
-                thread_ts=thread_ts
+                thread_ts=thread_ts,
             )
             assert response["ok"]
-        
+
         if 'Help' in text:
             channel_id = data['channel']
             thread_ts = data['ts']
@@ -52,18 +53,19 @@ def say_hello(**payload):
             response = webclient.chat_postMessage(
                 channel=channel_id,
                 text="I am a helpful admin bot. I support the following commands: {}".format(commands),
-                thread_ts=thread_ts
+                thread_ts=thread_ts,
             )
             assert response["ok"]
 
         else:
             print("[!] Waiting for commands...")
 
+
 def verify_token():
     '''
     Verify our API token exists and is not None
     '''
-    
+
     try:
         slack_token = os.environ.get('SLACK_API_TOKEN')
     except:
@@ -77,12 +79,13 @@ def verify_token():
             raise Exception('[!] Unable to set API token')
             sys.exit(1)
 
+
 def main():
+    # Verify API Token
+    slack_token = verify_token()
     slack_client = slack.RTMClient(token=slack_token)
     slack_client.start()
 
-# Verify API Token
-slack_token = verify_token()
 
 if __name__ == "__main__":
     main()
