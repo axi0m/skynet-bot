@@ -5,15 +5,19 @@ Purpose: Slack Bot to help the slack admins
 
 import slack
 import os
+import time
 
 '''
 TODO:
-1. Add function to test for inactive account - https://api.slack.com/methods/rtm.start/test
-2. Add logging module and debug/info logging
-3. Add HTTP 429 code handling in case we're rate limited, see Slack RTM API docs
-4. Add commands that'd be useful to have
+Add logging module and debug/info logging
+Add commands that'd be useful to have
+Add plugins in plugins directory
+Add more unit tests
 '''
 
+# 1 second delay for websocket connection to start and read events
+
+WEBSOCKET_DELAY = 1
 
 @slack.RTMClient.run_on(event='message')
 def say_hello(**payload):
@@ -25,22 +29,28 @@ def say_hello(**payload):
     user = data['user']
 
     if 'Hello' in text:
-        print('DEBUG: Bot consumed the message')
         response = webclient.chat_postMessage(
             channel=channel_id,
             text="Hi <@{}>!".format(user),
             thread_ts=thread_ts,
         )
-        print(response)
-        assert response["ok"]
+        if response["error"] == "ratelimited":
+            print("[!] Rate-limit exceeded: {}".format(response))
+        if response["error"] == "account_inactive":
+            print("[!] Bot account is inactive: {}".format(response))
+        if response["error"] == "token_revoked":
+            print("[!] API token has been revoked: {}".format(response))
+        if response["error"] == "invalid_auth":
+            print("[!] Invalid authentication: {}".format(response))
+        assert response["ok"], "[!] Error returned from response"
 
     else:
-        print("[!] Waiting for commands...")
+        print("[!] Not a valid command...")
 
 
 def verify_token():
     '''
-    Verify our API token exists and is not None
+    Verify our API token exists
     '''
 
     try:
@@ -54,10 +64,12 @@ def main():
     slack_token = verify_token()
     slack_client = slack.RTMClient(token=slack_token)
 
-    try:
-        slack_client.start()
-    except Exception as e:
-        print("[!] Unhandled exception encountered: {}".format(e))
+    while True:
+        try:
+            slack_client.start()
+        except Exception as e:
+            print("[!] Unhandled exception encountered: {}".format(e))
+        time.sleep(WEBSOCKET_DELAY)
 
 
 if __name__ == "__main__":
