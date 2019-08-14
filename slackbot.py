@@ -19,8 +19,13 @@ Add more unit tests
 
 WEBSOCKET_DELAY = 1
 
+
 @slack.RTMClient.run_on(event='message')
 def say_hello(**payload):
+    '''
+    Response to 'message' events from RTM API
+    '''
+
     data = payload['data']
     webclient = payload['web_client']
     text = data.get('text')
@@ -61,6 +66,9 @@ def verify_token():
 
 
 def main():
+    '''
+    Main function. Verify token, create client, loop client on all events
+    '''
     slack_token = verify_token()
     slack_client = slack.RTMClient(token=slack_token)
 
