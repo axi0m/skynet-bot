@@ -36,33 +36,36 @@ def say_hello(**payload):
     if 'Hello' in text:
         response = webclient.chat_postMessage(
             channel=channel_id,
-            text="Hi <@{}>!".format(user),
+            text=f"Hi <@{user}>!",
             thread_ts=thread_ts,
         )
         if response["error"] == "ratelimited":
-            print("[!] Rate-limit exceeded: {}".format(response))
+            print(f"[!] Rate-limit exceeded: {response}")
         if response["error"] == "account_inactive":
-            print("[!] Bot account is inactive: {}".format(response))
+            print(f"[!] Bot account is inactive: {response}")
         if response["error"] == "token_revoked":
-            print("[!] API token has been revoked: {}".format(response))
+            print(f"[!] API token has been revoked: {response}")
         if response["error"] == "invalid_auth":
-            print("[!] Invalid authentication: {}".format(response))
+            print(f"[!] Invalid authentication: {response}")
         assert response["ok"], "[!] Error returned from response"
 
     else:
         print("[!] Not a valid command...")
 
 
-def verify_token():
+def verify_token(**kwargs):
     '''
     Verify our API token exists
     '''
 
-    try:
-        slack_token = os.environ.get('SLACK_API_TOKEN')
-        return slack_token
-    except (Exception, SystemExit) as e:
-        print('[!] Unable to set API token: {}'.format(e))
+    if not kwargs.get('token', None):
+        try:
+            slack_token = os.environ.get('SLACK_API_TOKEN')
+            return slack_token
+        except (Exception, SystemExit) as e:
+            print(f'[!] Unable to set API token: {e}')
+    else:
+        return kwargs.get('token')
 
 
 def main():
@@ -76,7 +79,7 @@ def main():
         try:
             slack_client.start()
         except Exception as e:
-            print("[!] Unhandled exception encountered: {}".format(e))
+            print(f"[!] Unhandled exception encountered: {e}")
         time.sleep(WEBSOCKET_DELAY)
 
 
