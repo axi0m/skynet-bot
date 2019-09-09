@@ -1,8 +1,11 @@
-# skynet-bot
+# Skynet Bot
+
+## Description
 
 A bot for use in Slack - Helpful admin bot
 
-# Test Coverage
+## Test Coverage
+
 ```
 tests\test_slackbot.py .                                                                                                                      [100%] 
 
