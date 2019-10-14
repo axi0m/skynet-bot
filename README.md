@@ -1,3 +1,5 @@
+![GitHub last commit](https://img.shields.io/github/last-commit/axi0m/skynet-bot?style=flat-square)
+
 # Skynet Bot
 
 ## Description
