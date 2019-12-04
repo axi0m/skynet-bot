@@ -1,4 +1,7 @@
+![GitHub](https://img.shields.io/github/license/axi0m/skynet-bot?color=bright-green&style=flat-square)
 ![GitHub last commit](https://img.shields.io/github/last-commit/axi0m/skynet-bot?style=flat-square)
+![Maintenance](https://img.shields.io/maintenance/yes/2019?style=flat-square)
+![LGTM Alerts](https://img.shields.io/lgtm/alerts/github/axi0m/skynet-bot?style=flat-square)
 
 # Skynet Bot
 
