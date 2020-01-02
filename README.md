@@ -2,6 +2,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/axi0m/skynet-bot?style=flat-square)
 ![Maintenance](https://img.shields.io/maintenance/yes/2020?style=flat-square)
 ![LGTM Alerts](https://img.shields.io/lgtm/alerts/github/axi0m/skynet-bot?style=flat-square)
+[![Updates](https://pyup.io/repos/github/axi0m/skynet-bot/shield.svg)](https://pyup.io/repos/github/axi0m/skynet-bot/)
 
 # Skynet Bot
 
