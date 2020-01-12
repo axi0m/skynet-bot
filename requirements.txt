@@ -5,7 +5,7 @@ attrs==19.3.0
 chardet==3.0.4
 idna==2.8
 markovify==0.8.0
-multidict==4.7.3
+multidict==4.7.4
 slackclient==2.5.0
 unidecode==1.1.1
 yarl==1.4.2
