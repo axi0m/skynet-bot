@@ -11,7 +11,7 @@ py==1.8.1
 pyparsing==2.4.6
 pytest-cov==2.8.1
 pytest-cover==3.0.0
-pytest-coverage==0.0
+pytest-coverage==0.0.1
 pytest-icdiff==0.3
 pytest==5.3.5
 six==1.14.0
