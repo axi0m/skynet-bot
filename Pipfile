@@ -11,6 +11,7 @@ pytest-coverage = "*"
 [packages]
 slackclient = "*"
 markovify = "*"
+shodan = "*"
 
 [requires]
 python_version = "3.7"
