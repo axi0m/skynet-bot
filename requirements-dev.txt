@@ -16,4 +16,4 @@ pytest-icdiff==0.3
 pytest==5.3.5
 six==1.14.0
 wcwidth==0.1.8
-zipp==2.1.0
+zipp==2.2.0
