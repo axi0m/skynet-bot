@@ -7,7 +7,7 @@ chardet==3.0.4
 click-plugins==1.1.1
 click==7.0
 colorama==0.4.3
-idna==2.8
+idna==2.9
 markovify==0.8.0
 multidict==4.7.4
 requests==2.22.0
