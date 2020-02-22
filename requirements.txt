@@ -9,7 +9,7 @@ click==7.0
 colorama==0.4.3
 idna==2.9
 markovify==0.8.0
-multidict==4.7.4
+multidict==4.7.5
 requests==2.23.0
 shodan==1.21.3
 slackclient==2.5.0
