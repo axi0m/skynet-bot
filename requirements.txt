@@ -5,7 +5,7 @@ attrs==19.3.0
 certifi==2019.11.28
 chardet==3.0.4
 click-plugins==1.1.1
-click==7.0
+click==7.1
 colorama==0.4.3
 idna==2.9
 markovify==0.8.0
