@@ -13,7 +13,7 @@ pytest-cov==2.8.1
 pytest-cover==3.0.0
 pytest-coverage==0.0.1
 pytest-icdiff==0.3
-pytest==5.4.0
+pytest==5.4.1
 six==1.14.0
 wcwidth==0.1.8
 zipp==3.1.0
