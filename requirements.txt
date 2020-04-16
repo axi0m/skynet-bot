@@ -11,7 +11,7 @@ idna==2.9
 markovify==0.8.0
 multidict==4.7.5
 requests==2.23.0
-shodan==1.22.0
+shodan==1.23.0
 slackclient==2.5.0
 unidecode==1.1.1
 urllib3==1.25.8
