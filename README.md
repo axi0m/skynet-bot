@@ -1,8 +1,4 @@
-[![GitHub](https://img.shields.io/github/license/axi0m/skynet-bot?color=bright-green&style=flat-square)](https://github.com/axi0m/skynet-bot/blob/master/LICENSE.md)
-![GitHub last commit](https://img.shields.io/github/last-commit/axi0m/skynet-bot?style=flat-square)
-![Maintenance](https://img.shields.io/maintenance/yes/2020?style=flat-square)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/axi0m/skynet-bot.svg?logo=lgtm&logoWidth=18&style=flat-square)](https://lgtm.com/projects/g/axi0m/skynet-bot/alerts/)
-[![Updates](https://pyup.io/repos/github/axi0m/skynet-bot/shield.svg)](https://pyup.io/repos/github/axi0m/skynet-bot/)
+# [!] WARNING - ARCHIVED REPOSITORY
 
 # Skynet Bot
 
